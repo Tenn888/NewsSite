@@ -1,0 +1,38 @@
+{% extends 'base_news.html' %}
+
+{% block title %}
+    {{ news_item.title }} :: {{ block.super}}
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'inc/News/_sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+      <div class="card mb-3" style="background: #e4f4fe">
+          {{ forloop.counter }}
+          <div class="card-header">
+              {% if news_item.category %}
+                  <a href="{{ news_item.category.get_absolute_url }}">{{ news_item.category.title }}</a>
+              {% else %}
+                  <span>Без категории</span>
+              {% endif %}
+          </div>
+          <h1 class="card-title" style="text-align: center">{{ news_item.title }}</h1>
+              <div class="card-body">
+                  {% if news_item.photo %}
+                      <img src="{{ news_item.photo.url }}" class="mr-3" width="350" alt="Photo">
+                  {% else %}
+                      <h6>Фото нет</h6>
+                  {% endif %}
+              </div>
+              <div class="card-body">
+                  {% autoescape off %}
+                      <p class="card-text">{{ news_item.content|linebreaks }}</p>
+                  {% endautoescape %}
+              </div>
+          <div class="card-footer text-body-secondary">
+              {{ news_item.created_at|date:'Y-m-d H:i' }}
+          </div>
+      </div>
+{% endblock %}

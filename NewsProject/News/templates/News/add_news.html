@@ -1,0 +1,22 @@
+{% extends 'base_news.html' %}
+
+{% block title %}
+    Добавление новости :: {{ block.super}}
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'inc/News/_sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+
+    <h1>Добавление новости</h1>
+    <form action="{% url 'Add_news' %}" method="post" style="width: 900px;" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary btn-block">Добавить</button>
+        {{ form.none_field.errors }}
+    </form>
+
+{% endblock %}
